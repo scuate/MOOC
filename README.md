@@ -1,2 +1,2 @@
-# MOOC
-Online course projects
+### MOOC
+This repo contains (mini-)projects done in online courses. 
