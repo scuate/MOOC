@@ -1,0 +1,21 @@
+--the original table: frequency(docid,term,count), where docid holds document names, term holds all terms from the entire corpus, count holds the term frequency in a doc
+--given three keywords, get the doc most relevant (highest similarity score)
+--first consider the three keywords as a small doc, add the entry to the original table to create a new view
+
+CREATE VIEW keywords AS
+SELECT * from frequency
+UNION
+SELECT "q" as docid, "washington" as term, 1 as count
+UNION
+SELECT "q" as docid, "taxes" as term, 1 as count
+UNION
+SELECT "q" as docid, "treasury" as term, 1 as count;
+
+--get the similarity matrix of the new view and the old table; for the keyword doc, retrieve the highest similarity score between the keyword doc and another doc from the old table
+
+SELECT MAX(x.similarity) FROM( 
+SELECT f1.docid AS d1, f2.docid AS d2, SUM(f1.count*f2.count) AS similarity
+FROM keywords f1, frequency f2
+WHERE d1 = "q" AND f1.term = f2.term
+GROUP BY d1,d2
+) x;

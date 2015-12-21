@@ -1,0 +1,12 @@
+--the original table: frequency(docid,term,count), where docid holds document names, term holds all terms from the entire corpus, count holds the term frequency in a doc
+--get the similarity score of the two documents
+--similarity score is computed by summing up the products of term frequency in two documents
+--in this example, get the entire similarity matrix and then retrieve the target score; a faster way is to replace the inner SELECT WHERE d1<d2 with the target docid condition (last line)
+
+SELECT x.similarity
+FROM
+(SELECT f1.docid AS d1, f2.docid AS d2, SUM(f1.count*f2.count) AS similarity
+FROM frequency f1, frequency f2
+WHERE d1 < d2 and f1.term = f2.term
+GROUP BY d1,d2) x
+WHERE x.d1 = "10080_txt_crude" AND x.d2 = "17035_txt_earn";

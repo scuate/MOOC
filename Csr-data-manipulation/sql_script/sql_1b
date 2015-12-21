@@ -1,0 +1,7 @@
+--table: frequency(docid,term,count)
+--get the number of terms that only appear once in the given doc
+
+SELECT count(*) FROM (
+       SELECT f.term FROM frequency f
+       WHERE docid = "10398_txt_earn" AND count = 1
+) x;

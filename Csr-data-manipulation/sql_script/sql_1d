@@ -1,0 +1,12 @@
+--the table: frequency(docid,term,count)
+--get the number of docs where "law" or "legal" appears (UNION no duplicates)
+
+SELECT count(*) FROM(
+       SELECT f.docid 
+       FROM frequency f
+       WHERE term = "law"
+       UNION
+       SELECT f.docid
+       FROM frequency f
+       WHERE term = "legal"
+) x;

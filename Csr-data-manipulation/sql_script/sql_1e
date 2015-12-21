@@ -1,0 +1,8 @@
+--the table: frequency(docid,term,count)
+--get the number of docs with over 300 terms (no duplicates,therefore COUNT(count) instead of SUM(count))
+
+SELECT count(*) FROM(
+       SELECT f.docid, COUNT(f.count)
+       FROM frequency f
+       GROUP BY f.docid
+       HAVING COUNT(f.count) > 300) x;

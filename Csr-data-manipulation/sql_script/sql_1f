@@ -1,0 +1,12 @@
+--the table: frequency(docid,term,count)
+--get the number of docs with both the term "transactions" and "world"-> use intersection of docs where one of the terms show up
+
+SELECT count(*) FROM (
+       SELECT f.docid 
+       FROM frequency f
+       WHERE term = "transactions"
+       INTERSECT
+       SELECT f.docid
+       FROM frequency f
+       WHERE term = "world"
+)x;
